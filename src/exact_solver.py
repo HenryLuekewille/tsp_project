@@ -42,7 +42,7 @@ def exact_tsp_brute_force(cities: List[str], distance_matrix: np.ndarray,
     total_permutations = np.math.factorial(len(other_cities))
     
     if verbose:
-        print(f"\n🎯 Exakte Lösung (Brute Force)")
+        print(f"\n Exakte Lösung (Brute Force)")
         print(f"  Städte: {n}")
         print(f"  Permutationen: {total_permutations:,}")
     

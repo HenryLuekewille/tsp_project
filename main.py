@@ -57,10 +57,11 @@ def compare_algorithms(dataset_name: str = 'top_10_staedte'):
     
     ga = GeneticAlgorithmTSP(
         cities, distance_matrix, start_city,
-        population_size=100,
-        generations=500,
-        mutation_rate=0.01,
-        elite_size=20
+        population_size=200,      # VERDOPPELT
+        generations=1000,         # VERDOPPELT
+        mutation_rate=0.05,       # 5x HÖHER (5% statt 1%)
+        elite_size=20,
+        early_stopping_generations=100  # Mehr Geduld
     )
     ga_route, ga_distance, ga_stats = ga.solve(verbose=True)
     
