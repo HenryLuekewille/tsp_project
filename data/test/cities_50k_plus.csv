@@ -1,0 +1,196 @@
+name,population,longitude,latitude,flaeche,region
+"Berlin, Stadt",3685265,13.405538,52.51767,891.12,Berlin
+"Hamburg, Freie und Hansestadt",1862565,9.99697,53.550678,755.09,Hamburg
+"München, Landeshauptstadt",1505005,11.575997,48.137683,310.7,Landeshauptstadt München
+"Köln, Stadt",1024621,6.957068,50.938107,405.02,Köln und Rhein-Erft-Kreis
+"Frankfurt am Main, Stadt",756021,8.682433,50.11088,248.31,Main und Taunus
+"Düsseldorf, Stadt",618685,6.780068,51.22422,217.41,Düsseldorf und Kreis Mettmann
+"Stuttgart, Landeshauptstadt",612663,9.177734,48.775817,207.33,Region Stuttgart
+"Leipzig, Stadt",611850,12.377931,51.338288,297.8,Stadt Leipzig
+"Dortmund, Stadt",603462,7.464165,51.514171,280.71,Ruhrgebiet
+"Bremen, Stadt",586271,8.809338,53.075606,326.17,Bremen
+"Essen, Stadt",574682,7.012583,51.455843,210.34,Ruhrgebiet
+"Dresden, Stadt",564904,13.736883,51.051697,328.48,Stadt Dresden
+Nürnberg,529508,11.075269,49.450938,186.44,Städteregion Nürnberg
+"Hannover, Landeshauptstadt",522131,9.738084,52.374551,204.3,Hannover-Hildesheim
+"Duisburg, Stadt",502270,6.765477,51.433259,232.84,Niederrhein
+"Bochum, Stadt",358676,7.217177,51.482699,145.66,Ruhrgebiet
+"Wuppertal, Stadt",358193,7.195874,51.271288,168.39,Bergisches Städtedreieck
+"Bielefeld, Stadt",331605,8.534049,52.021995,258.83,Teutoburger Wald
+"Bonn, Stadt",323336,7.099187,50.734245,141.06,Bonn und Rhein-Sieg-Kreis
+"Mannheim, Universitätsstadt",318035,8.466275,49.48778,144.97,Nördliches Baden-Württemberg
+"Karlsruhe, Stadt",309050,8.405282,49.009626,173.42,Nördlicher Schwarzwald
+"Münster, Stadt",308258,7.626804,51.961908,303.28,Münsterland
+Augsburg,301105,10.897594,48.368384,146.85,Bayerisch-Schwaben
+"Wiesbaden, Landeshauptstadt",288850,8.239138,50.081698,203.87,Rheingau-Taunus
+"Gelsenkirchen, Stadt",267930,7.096064,51.510892,104.94,Ruhrgebiet
+"Mönchengladbach, Stadt",267213,6.43161,51.194473,170.47,Niederrhein
+"Aachen, Stadt",262670,6.0848,50.773516,160.85,Eifel und Region Aachen
+"Braunschweig, Stadt",252962,10.520525,52.26249,192.7,Braunschweiger Land
+"Kiel, Landeshauptstadt",252668,10.13727,54.321775,118.65,Ostsee
+"Chemnitz, Stadt",245618,12.921602,50.833593,221.03,Chemnitz Zwickau Region
+"Magdeburg, Landeshauptstadt",244329,11.632726,52.126248,201.68,"Magdeburg, Elbe-Börde-Heide"
+"Freiburg im Breisgau, Stadt",237460,7.849877,47.994786,153.04,Südlicher Schwarzwald
+"Krefeld, Stadt",231406,6.56089,51.332637,137.78,Niederrhein
+"Halle (Saale), Stadt",226767,11.970666,51.482478,135.56,"Halle, Saale, Unstrut"
+"Mainz, Stadt",224684,8.271855,50.001959,97.73,Rheinhessen
+"Erfurt, Stadt",218793,11.027236,50.977122,269.91,Erfurt
+"Lübeck, Hansestadt",216889,10.683932,53.866269,214.19,Ostsee
+"Oberhausen, Stadt",213646,6.852291,51.470317,77.09,Ruhrgebiet
+"Rostock, Hanse- und Universitätsstadt",205307,12.135993,54.088548,181.38,Mecklenburgische Ostseeküste
+"Kassel, documenta-Stadt",197230,9.495199,51.314684,106.79,Kassel- Land
+"Hagen, Stadt der FernUniversität",190384,7.467406,51.360171,160.45,Ruhrgebiet
+"Potsdam, Stadt",184754,13.05358,52.400355,188.24,Potsdam
+"Saarbrücken, Landeshauptstadt",182971,6.995542,49.236608,167.52,Übriges Saarland
+"Hamm, Stadt",179968,7.816947,51.678312,226.43,Ruhrgebiet
+"Ludwigshafen am Rhein, Stadt",177222,8.447899,49.483235,77.43,Pfalz
+"Oldenburg (Oldb), Stadt",176614,8.212993,53.140025,103.09,Oldenburger Land
+"Mülheim an der Ruhr, Stadt",173050,6.88505,51.428107,91.28,Ruhrgebiet
+"Leverkusen, Stadt",168581,6.979767,51.03245,78.87,Bergisches Land
+"Darmstadt, Wissenschaftsstadt",167029,8.653838,49.872238,122.07,Odenwald-Bergstrasse-Neckartal
+"Osnabrück, Stadt",166057,8.04205,52.27692,119.8,Grafschaft Bentheim-Emsland-Osnabrücker Land
+"Solingen, Klingenstadt",165626,7.085665,51.171718,89.54,Bergisches Städtedreieck
+"Paderborn, Stadt",156378,8.757301,51.719601,179.59,Teutoburger Wald
+"Herne, Stadt",155851,7.222793,51.540365,51.42,Ruhrgebiet
+"Heidelberg, Stadt",155756,8.705543,49.410524,108.83,Nördliches Baden-Württemberg
+"Neuss, Stadt",154317,6.691409,51.198873,99.52,Niederrhein
+Regensburg,151389,12.101745,49.015249,80.86,Regensburg
+Ingolstadt,141185,11.423387,48.76542,133.35,Oberbayerns Städte
+"Pforzheim, Stadt",134912,8.699166,48.891285,97.99,Nördlicher Schwarzwald
+Würzburg,133258,9.93725,49.79393,87.6,Fränkisches Weinland
+"Offenbach am Main, Stadt",132746,8.764442,50.105567,44.88,Main und Taunus
+Fürth,132036,10.987404,49.478592,63.35,Städteregion Nürnberg
+"Heilbronn, Universitätsstadt",131986,9.217953,49.140428,99.89,Nördliches Baden-Württemberg
+"Ulm, Universitätsstadt",129882,9.990402,48.398454,118.68,Schwäbische Alb
+"Wolfsburg, Stadt",129560,10.784975,52.421938,204.62,Braunschweiger Land
+"Göttingen, Stadt",127259,9.935418,51.533337,117.02,Harz
+"Reutlingen, Stadt",118852,9.212006,48.49208,87.04,Schwäbische Alb
+"Bremerhaven, Stadt",118610,8.578068,53.543032,93.77,Bremen
+"Bottrop, Stadt",118535,6.927126,51.521059,100.61,Ruhrgebiet
+Erlangen,115928,11.003274,49.59508,76.96,Städteregion Nürnberg
+"Recklinghausen, Stadt",115344,7.197544,51.614576,66.5,Ruhrgebiet
+"Remscheid, Stadt",113828,7.194356,51.179878,74.52,Bergisches Städtedreieck
+"Koblenz, Stadt",113378,7.597956,50.359516,105.25,Mittelrheintal
+"Bergisch Gladbach, Stadt",111361,7.130608,50.992244,83.09,Bergisches Land
+"Jena, Stadt",109725,11.591842,50.93006,114.77,Saaleland
+"Salzgitter, Stadt",104970,10.329208,52.153574,224.48,Braunschweiger Land
+"Trier, Stadt",104342,6.638021,49.757603,117.06,Mosel-Saar
+"Siegen, Universitätsstadt",102685,8.024625,50.874559,114.69,Siegerland-Wittgenstein
+"Moers, Stadt",101503,6.628027,51.453559,67.64,Niederrhein
+"Gütersloh, Stadt",100479,8.375587,51.907302,112.02,Teutoburger Wald
+"Kaiserslautern, Stadt",100426,7.768864,49.445456,139.7,Pfalz
+"Hildesheim, Stadt",98510,9.948181,52.150623,92.29,Hannover-Hildesheim
+"Schwerin, Landeshauptstadt",98308,11.414434,53.628545,130.52,Westmecklenburg
+"Hanau, Brüder-Grimm-Stadt",97956,8.915189,50.135573,76.28,Spessart-Kinzigtal-Vogelsberg
+"Flensburg, Stadt",96326,9.43751,54.78252,56.73,Ostsee
+"Esslingen am Neckar, Stadt",96182,9.309565,48.741347,46.43,Region Stuttgart
+"Gera, Stadt",95608,12.080429,50.876147,152.18,Thüringer Vogtland
+"Cottbus/Chóśebuz, Stadt",95123,14.335117,51.759345,165.61,Spreewald
+"Düren, Stadt",94568,6.482964,50.801678,85.01,Eifel und Region Aachen
+"Ludwigsburg, Stadt",92858,9.190393,48.896233,43.34,Region Stuttgart
+"Tübingen, Universitätsstadt",92322,9.054572,48.520863,108.07,Schwäbische Alb
+"Iserlohn, Stadt",91811,7.699212,51.374541,125.49,Sauerland
+"Witten, Stadt",91808,7.337177,51.438718,72.4,Ruhrgebiet
+"Villingen-Schwenningen, Stadt",89756,8.459649,48.058255,165.53,Mittlerer Schwarzwald
+"Ratingen, Stadt",89368,6.849646,51.297037,88.74,Düsseldorf und Kreis Mettmann
+"Gießen, Universitätsstadt",89179,8.674877,50.586195,72.61,Lahn-Dill
+"Zwickau, Stadt, Hochschulstadt",87410,12.495641,50.718556,102.58,Chemnitz Zwickau Region
+"Konstanz, Universitätsstadt",86919,9.175957,47.662757,54.12,Bodensee
+"Marl, Stadt",86766,7.101811,51.658211,87.76,Ruhrgebiet
+"Worms, Stadt",86753,8.361704,49.629828,108.73,Rheinhessen
+"Lünen, Stadt",86163,7.523533,51.614327,59.39,Ruhrgebiet
+"Minden, Stadt",84013,8.914559,52.288271,101.12,Teutoburger Wald
+"Norderstedt, Stadt",82844,9.996943,53.706115,58.1,übrig. Schleswig-Holstein
+"Velbert, Stadt",82463,7.041629,51.340048,74.9,Düsseldorf und Kreis Mettmann
+"Delmenhorst, Stadt",81406,8.630108,53.049883,62.45,Oldenburger Land
+"Neumünster, Stadt",79809,9.988422,54.069895,71.66,übrig. Schleswig-Holstein
+"Viersen, Stadt",78373,6.389226,51.256856,91.1,Niederrhein
+"Rheine, Stadt",77209,7.438651,52.279214,145.0,Münsterland
+Bamberg,77150,10.886786,49.893387,54.62,Steigerwald
+"Troisdorf, Stadt",75901,7.162309,50.812544,62.0,Bonn und Rhein-Sieg-Kreis
+"Wilhelmshaven, Stadt",75745,8.111156,53.520302,107.11,Nordseeküste
+"Gladbeck, Stadt",75499,6.992723,51.573424,35.97,Ruhrgebiet
+"Dessau-Roßlau, Stadt",75402,12.245715,51.834703,245.78,Anhalt-Wittenberg
+"Dorsten, Stadt",75277,6.964689,51.660837,171.2,Ruhrgebiet
+"Arnsberg, Stadt",74879,8.064801,51.395795,193.72,Sauerland
+"Lüneburg, Hansestadt",74785,10.408793,53.249157,70.5,Lüneburger Heide
+"Detmold, Stadt",74278,8.878641,51.935357,129.39,Teutoburger Wald
+"Brandenburg an der Havel, Stadt",74113,12.563364,52.408651,229.73,Havelland
+"Marburg, Universitätsstadt",73544,8.769147,50.809004,123.91,Marburg-Biedenkopf
+"Castrop-Rauxel, Stadt",73282,7.310311,51.548997,51.68,Ruhrgebiet
+"Bocholt, Stadt",73257,6.61564,51.837931,119.41,Münsterland
+Aschaffenburg,73091,9.147832,49.973506,62.45,Spessart-Mainland
+Bayreuth,72940,11.575301,49.943752,66.89,Fichtelgebirge
+Landshut,71863,12.152143,48.536978,65.83,Bayerisches Thermenland
+"Lüdenscheid, Stadt",71212,7.63358,51.21582,87.02,Sauerland
+"Lippstadt, Stadt",68739,8.346206,51.674054,113.68,Sauerland
+Kempten (Allgäu),67645,10.317823,47.724016,63.28,Allgäu
+"Aalen, Stadt",67621,10.092337,48.835057,146.58,Schwäbische Alb
+"Herford, Hansestadt",67503,8.673516,52.115598,79.15,Teutoburger Wald
+"Neuwied, Stadt",67083,7.459692,50.429018,86.5,Mittelrheintal
+"Dinslaken, Stadt",66993,6.734967,51.562266,47.66,Niederrhein
+"Celle, Stadt",66834,10.08067,52.626307,176.02,Lüneburger Heide
+"Kerpen, Kolpingstadt",66585,6.694948,50.869982,113.96,Köln und Rhein-Erft-Kreis
+"Grevenbroich, Stadt",65983,6.583331,51.091192,102.52,Niederrhein
+"Weimar, Stadt",65954,11.329741,50.980761,84.47,Weimar
+"Rüsselsheim am Main, Stadt",65627,8.411404,49.994936,58.29,Odenwald-Bergstrasse-Neckartal
+"Plauen, Stadt, Hochschulstadt",65599,12.135285,50.496039,102.11,Vogtland
+"Fulda, Stadt",65434,9.675061,50.55323,104.05,Rhön
+Rosenheim,65274,12.128932,47.856358,37.22,Chiemsee-Alpenland
+"Schwäbisch Gmünd, Stadt",64416,9.796508,48.802384,113.81,Schwäbische Alb
+"Dormagen, Stadt",63799,6.841963,51.093432,85.5,Niederrhein
+"Offenburg, Stadt",62993,7.944214,48.469474,78.37,Mittlerer Schwarzwald
+"Friedrichshafen, Stadt",62796,9.479614,47.652205,69.93,Bodensee
+"Neu-Ulm, GKSt",62641,9.998683,48.392999,80.95,Bayerisch-Schwaben
+"Hürth, Stadt",62160,6.856696,50.874348,51.22,Köln und Rhein-Erft-Kreis
+"Bergheim, Stadt",61611,6.640252,50.955113,96.34,Köln und Rhein-Erft-Kreis
+"Sindelfingen, Stadt",61422,9.002211,48.709831,50.83,Region Stuttgart
+"Herten, Stadt",60941,7.140236,51.59465,37.33,Ruhrgebiet
+"Wesel, Stadt",60785,6.617306,51.65733,122.56,Niederrhein
+"Neubrandenburg, Vier-Tore-Stadt",60344,13.25996,53.557345,86.12,Mecklenburgische Schweiz und Seenplatte
+"Euskirchen, Stadt",60021,6.786098,50.660933,139.49,Eifel und Region Aachen
+"Langenfeld (Rheinland), Stadt",59975,6.948927,51.107416,41.15,Düsseldorf und Kreis Mettmann
+"Garbsen, Stadt",59903,9.600191,52.426344,79.49,Hannover-Hildesheim
+"Göppingen, Stadt",58937,9.653964,48.703267,59.21,Region Stuttgart
+"Unna, Stadt",58333,7.689932,51.534878,88.56,Ruhrgebiet
+"Hameln, Stadt",58244,9.356316,52.104402,102.53,Weserbergland
+"Stolberg (Rhld.), Kupferstadt",57684,6.223585,50.776783,98.48,Eifel und Region Aachen
+"Eschweiler, Stadt",57534,6.266781,50.817431,75.75,Eifel und Region Aachen
+"Waiblingen, Stadt",57313,9.314525,48.83001,42.75,Region Stuttgart
+"Frankfurt (Oder), Stadt",57107,14.551151,52.344651,147.85,Seenland Oder-Spree
+"Meerbusch, Stadt",57078,6.688437,51.265845,64.4,Niederrhein
+"Nordhorn, Stadt",56973,7.071263,52.435804,149.86,Grafschaft Bentheim-Emsland-Osnabrücker Land
+"Baden-Baden, Stadt",56881,8.239951,48.761794,140.19,Nördlicher Schwarzwald
+"Bad Homburg v. d. Höhe, Stadt",56688,8.61299,50.228406,51.14,Main und Taunus
+"Sankt Augustin, Stadt",56521,7.185259,50.77333,34.22,Bonn und Rhein-Sieg-Kreis
+"Lingen (Ems), Stadt",56498,7.316682,52.522295,176.19,Grafschaft Bentheim-Emsland-Osnabrücker Land
+"Pulheim, Stadt",56150,6.800707,50.998416,72.15,Köln und Rhein-Erft-Kreis
+"Greifswald, Universitäts- und Hansestadt",56092,13.379627,54.09581,50.81,Vorpommern
+"Görlitz, Stadt, Hochschulstadt",55186,14.988035,51.155287,67.53,Oberlausitz/Niederschlesien
+"Hilden, Stadt",55157,6.933705,51.168245,25.95,Düsseldorf und Kreis Mettmann
+"Wetzlar, Stadt",54665,8.501069,50.554439,75.65,Lahn-Dill
+Schweinfurt,54481,10.230301,50.045505,35.7,Fränkisches Weinland
+"Bad Kreuznach, Stadt",54168,7.861839,49.844515,55.56,Naheland
+"Langenhagen, Stadt",54142,9.734278,52.438469,71.97,Hannover-Hildesheim
+"Stralsund, Hansestadt",54094,13.089973,54.313975,54.59,Vorpommern
+"Bad Salzuflen, Stadt",53958,8.741876,52.084998,100.05,Teutoburger Wald
+"Hattingen, Stadt",53044,7.184107,51.399035,71.67,Ruhrgebiet
+Passau,53039,13.458449,48.572926,69.56,Bayerisches Thermenland
+"Kleve, Stadt",53028,6.138858,51.787781,97.76,Niederrhein
+"Neustadt an der Weinstraße, Stadt",52945,8.140755,49.351983,117.09,Pfalz
+"Ahlen, Stadt",52666,7.889882,51.762985,123.13,Münsterland
+"Wolfenbüttel, Stadt",52604,10.536202,52.163491,78.74,Braunschweiger Land
+"Frechen, Stadt",52309,6.813419,50.908398,45.06,Köln und Rhein-Erft-Kreis
+"Menden (Sauerland), Stadt",52255,7.795344,51.439281,86.1,Sauerland
+"Ibbenbüren, Stadt",51803,7.714734,52.275364,108.87,Münsterland
+"Böblingen, Stadt",51483,9.009663,48.685296,39.04,Region Stuttgart
+"Lörrach, Stadt",51349,7.659191,47.612096,39.37,Südlicher Schwarzwald
+"Elmshorn, Stadt",51342,9.655259,53.754958,21.36,übrig. Schleswig-Holstein
+"Gummersbach, Stadt",51290,7.568149,51.028326,95.41,Bergisches Land
+"Peine, Stadt",50987,10.227076,52.321764,119.84,Braunschweiger Land
+"Lahr/Schwarzwald, Stadt",50775,7.874292,48.339132,69.84,Mittlerer Schwarzwald
+"Rastatt, Stadt",50741,8.202529,48.857703,58.98,Nördlicher Schwarzwald
+"Ravensburg, Stadt",50628,9.615089,47.78366,92.05,Oberschwaben-Allgäu
+"Bad Oeynhausen, Stadt",50620,8.805514,52.205258,64.83,Teutoburger Wald
+"Heidenheim an der Brenz, Stadt",50618,10.154639,48.677736,107.09,Schwäbische Alb
+"Gronau (Westf.), Stadt",50547,7.019103,52.212285,78.82,Münsterland

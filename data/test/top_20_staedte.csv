@@ -1,0 +1,21 @@
+name,population,longitude,latitude,flaeche,region
+"Berlin, Stadt",3685265,13.405538,52.51767,891.12,Berlin
+"Hamburg, Freie und Hansestadt",1862565,9.99697,53.550678,755.09,Hamburg
+"München, Landeshauptstadt",1505005,11.575997,48.137683,310.7,Landeshauptstadt München
+"Köln, Stadt",1024621,6.957068,50.938107,405.02,Köln und Rhein-Erft-Kreis
+"Frankfurt am Main, Stadt",756021,8.682433,50.11088,248.31,Main und Taunus
+"Düsseldorf, Stadt",618685,6.780068,51.22422,217.41,Düsseldorf und Kreis Mettmann
+"Stuttgart, Landeshauptstadt",612663,9.177734,48.775817,207.33,Region Stuttgart
+"Leipzig, Stadt",611850,12.377931,51.338288,297.8,Stadt Leipzig
+"Dortmund, Stadt",603462,7.464165,51.514171,280.71,Ruhrgebiet
+"Bremen, Stadt",586271,8.809338,53.075606,326.17,Bremen
+"Essen, Stadt",574682,7.012583,51.455843,210.34,Ruhrgebiet
+"Dresden, Stadt",564904,13.736883,51.051697,328.48,Stadt Dresden
+Nürnberg,529508,11.075269,49.450938,186.44,Städteregion Nürnberg
+"Hannover, Landeshauptstadt",522131,9.738084,52.374551,204.3,Hannover-Hildesheim
+"Duisburg, Stadt",502270,6.765477,51.433259,232.84,Niederrhein
+"Bochum, Stadt",358676,7.217177,51.482699,145.66,Ruhrgebiet
+"Wuppertal, Stadt",358193,7.195874,51.271288,168.39,Bergisches Städtedreieck
+"Bielefeld, Stadt",331605,8.534049,52.021995,258.83,Teutoburger Wald
+"Bonn, Stadt",323336,7.099187,50.734245,141.06,Bonn und Rhein-Sieg-Kreis
+"Mannheim, Universitätsstadt",318035,8.466275,49.48778,144.97,Nördliches Baden-Württemberg

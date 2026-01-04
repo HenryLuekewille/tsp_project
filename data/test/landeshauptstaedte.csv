@@ -1,0 +1,17 @@
+name,population,longitude,latitude,flaeche,region
+"Berlin, Stadt",3685265,13.405538,52.51767,891.12,Berlin
+"Hamburg, Freie und Hansestadt",1862565,9.99697,53.550678,755.09,Hamburg
+"München, Landeshauptstadt",1505005,11.575997,48.137683,310.7,Landeshauptstadt München
+"Düsseldorf, Stadt",618685,6.780068,51.22422,217.41,Düsseldorf und Kreis Mettmann
+"Stuttgart, Landeshauptstadt",612663,9.177734,48.775817,207.33,Region Stuttgart
+"Bremen, Stadt",586271,8.809338,53.075606,326.17,Bremen
+"Dresden, Stadt",564904,13.736883,51.051697,328.48,Stadt Dresden
+"Hannover, Landeshauptstadt",522131,9.738084,52.374551,204.3,Hannover-Hildesheim
+"Wiesbaden, Landeshauptstadt",288850,8.239138,50.081698,203.87,Rheingau-Taunus
+"Kiel, Landeshauptstadt",252668,10.13727,54.321775,118.65,Ostsee
+"Magdeburg, Landeshauptstadt",244329,11.632726,52.126248,201.68,"Magdeburg, Elbe-Börde-Heide"
+"Mainz, Stadt",224684,8.271855,50.001959,97.73,Rheinhessen
+"Erfurt, Stadt",218793,11.027236,50.977122,269.91,Erfurt
+"Potsdam, Stadt",184754,13.05358,52.400355,188.24,Potsdam
+"Saarbrücken, Landeshauptstadt",182971,6.995542,49.236608,167.52,Übriges Saarland
+"Schwerin, Landeshauptstadt",98308,11.414434,53.628545,130.52,Westmecklenburg
