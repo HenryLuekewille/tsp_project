@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_d6399a013e4a86b03891ebb92acb7140 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <div style="position: fixed; 
+                top: 10px; left: 50px; width: 300px; height: 90px; 
+                background-color: white; border:2px solid grey; z-index:9999; 
+                font-size:14px; padding: 10px">
+        <b>TSP top_10_staedte - Genetic Algorithm</b><br>
+        Städte: 10<br>
+        Gesamtdistanz: 1734.15 km
+    </div>
+    
+    
+            <div class="folium-map" id="map_d6399a013e4a86b03891ebb92acb7140" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_d6399a013e4a86b03891ebb92acb7140 = L.map(
+                "map_d6399a013e4a86b03891ebb92acb7140",
+                {
+                    center: [51.1657, 10.4515],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 6,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_0aa47c7b9c21250263f45b530434767f = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_0aa47c7b9c21250263f45b530434767f.addTo(map_d6399a013e4a86b03891ebb92acb7140);
+        
+    
+            var poly_line_6cf9abdda119fc71dbf034cce4967cd2 = L.polyline(
+                [[52.51767, 13.405538], [51.338288, 12.377931], [48.137683, 11.575997], [48.775817, 9.177734], [50.11088, 8.682433], [50.938107, 6.957068], [51.514171, 7.464165], [51.22422, 6.780068], [53.075606, 8.809338], [53.550678, 9.99697], [52.51767, 13.405538]],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(map_d6399a013e4a86b03891ebb92acb7140);
+        
+    
+        var popup_27c5c1d31d84e5c3ddbd78adfb6c6bb0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_19dd05e1ba31cd6402b012fa2d2f860e = $(`<div id="html_19dd05e1ba31cd6402b012fa2d2f860e" style="width: 100.0%; height: 100.0%;">Route: 1734.15 km</div>`)[0];
+                popup_27c5c1d31d84e5c3ddbd78adfb6c6bb0.setContent(html_19dd05e1ba31cd6402b012fa2d2f860e);
+            
+        
+
+        poly_line_6cf9abdda119fc71dbf034cce4967cd2.bindPopup(popup_27c5c1d31d84e5c3ddbd78adfb6c6bb0)
+        ;
+
+        
+    
+    
+            var marker_a8c89fc275f15b50663145fad617b19d = L.marker(
+                [52.51767, 13.405538],
+                {
+}
+            ).addTo(map_d6399a013e4a86b03891ebb92acb7140);
+        
+    
+            var icon_f4867f61c723c5d00ff358a6d22afa8e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "play",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9c0881c8ebf41d453373b1a207930fe1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_dd83a60fe994aac85e849c698d8a3cbb = $(`<div id="html_dd83a60fe994aac85e849c698d8a3cbb" style="width: 100.0%; height: 100.0%;">🏁 START: Berlin, Stadt</div>`)[0];
+                popup_9c0881c8ebf41d453373b1a207930fe1.setContent(html_dd83a60fe994aac85e849c698d8a3cbb);
+            
+        
+
+        marker_a8c89fc275f15b50663145fad617b19d.bindPopup(popup_9c0881c8ebf41d453373b1a207930fe1)
+        ;
+
+        
+    
+    
+            marker_a8c89fc275f15b50663145fad617b19d.bindTooltip(
+                `<div>
+                     Berlin, Stadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a8c89fc275f15b50663145fad617b19d.setIcon(icon_f4867f61c723c5d00ff358a6d22afa8e);
+            
+    
+            var marker_906c1af0286346f2626947a27f6dba7a = L.marker(
+                [51.338288, 12.377931],
+                {
+}
+            ).addTo(map_d6399a013e4a86b03891ebb92acb7140);
+        
+    
+            var icon_0190fb73156768593e1e153d0eb723c6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6d5c8f100801300ed7b5bd8072ccb89a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5492196e0767037e03406e6dce975cc7 = $(`<div id="html_5492196e0767037e03406e6dce975cc7" style="width: 100.0%; height: 100.0%;">2. Leipzig, Stadt</div>`)[0];
+                popup_6d5c8f100801300ed7b5bd8072ccb89a.setContent(html_5492196e0767037e03406e6dce975cc7);
+            
+        
+
+        marker_906c1af0286346f2626947a27f6dba7a.bindPopup(popup_6d5c8f100801300ed7b5bd8072ccb89a)
+        ;
+
+        
+    
+    
+            marker_906c1af0286346f2626947a27f6dba7a.bindTooltip(
+                `<div>
+                     Leipzig, Stadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_906c1af0286346f2626947a27f6dba7a.setIcon(icon_0190fb73156768593e1e153d0eb723c6);
+            
+    
+            var marker_502cbb65490df02ab8f82f2817fd7730 = L.marker(
+                [48.137683, 11.575997],
+                {
+}
+            ).addTo(map_d6399a013e4a86b03891ebb92acb7140);
+        
+    
+            var icon_972e1d535d31a803638f81ae9ff62ea9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_dbefcd62e0bc8627b1116c0c07186748 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_777152a367f61a7a36cfff66dfa9d38f = $(`<div id="html_777152a367f61a7a36cfff66dfa9d38f" style="width: 100.0%; height: 100.0%;">3. München, Landeshauptstadt</div>`)[0];
+                popup_dbefcd62e0bc8627b1116c0c07186748.setContent(html_777152a367f61a7a36cfff66dfa9d38f);
+            
+        
+
+        marker_502cbb65490df02ab8f82f2817fd7730.bindPopup(popup_dbefcd62e0bc8627b1116c0c07186748)
+        ;
+
+        
+    
+    
+            marker_502cbb65490df02ab8f82f2817fd7730.bindTooltip(
+                `<div>
+                     München, Landeshauptstadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_502cbb65490df02ab8f82f2817fd7730.setIcon(icon_972e1d535d31a803638f81ae9ff62ea9);
+            
+    
+            var marker_50eb9cd78be2b51a764652d9566fe607 = L.marker(
+                [48.775817, 9.177734],
+                {
+}
+            ).addTo(map_d6399a013e4a86b03891ebb92acb7140);
+        
+    
+            var icon_6819802e53975359b0a43bbcc4dacae2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7cf0072a1ac5f3717b72cbaef968ebba = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6bd98b90da098064d75e84f0f35adff2 = $(`<div id="html_6bd98b90da098064d75e84f0f35adff2" style="width: 100.0%; height: 100.0%;">4. Stuttgart, Landeshauptstadt</div>`)[0];
+                popup_7cf0072a1ac5f3717b72cbaef968ebba.setContent(html_6bd98b90da098064d75e84f0f35adff2);
+            
+        
+
+        marker_50eb9cd78be2b51a764652d9566fe607.bindPopup(popup_7cf0072a1ac5f3717b72cbaef968ebba)
+        ;
+
+        
+    
+    
+            marker_50eb9cd78be2b51a764652d9566fe607.bindTooltip(
+                `<div>
+                     Stuttgart, Landeshauptstadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_50eb9cd78be2b51a764652d9566fe607.setIcon(icon_6819802e53975359b0a43bbcc4dacae2);
+            
+    
+            var marker_9d5ba9eaf219d07058456a86c48c54c8 = L.marker(
+                [50.11088, 8.682433],
+                {
+}
+            ).addTo(map_d6399a013e4a86b03891ebb92acb7140);
+        
+    
+            var icon_b822a807d07a3b2cdbab9357179e8114 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d829ebebf128ce600d984dea3476fd82 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c6d83da18102fd857a489b60a33798f8 = $(`<div id="html_c6d83da18102fd857a489b60a33798f8" style="width: 100.0%; height: 100.0%;">5. Frankfurt am Main, Stadt</div>`)[0];
+                popup_d829ebebf128ce600d984dea3476fd82.setContent(html_c6d83da18102fd857a489b60a33798f8);
+            
+        
+
+        marker_9d5ba9eaf219d07058456a86c48c54c8.bindPopup(popup_d829ebebf128ce600d984dea3476fd82)
+        ;
+
+        
+    
+    
+            marker_9d5ba9eaf219d07058456a86c48c54c8.bindTooltip(
+                `<div>
+                     Frankfurt am Main, Stadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9d5ba9eaf219d07058456a86c48c54c8.setIcon(icon_b822a807d07a3b2cdbab9357179e8114);
+            
+    
+            var marker_dcaddcdbac70a8f709d1af684840011c = L.marker(
+                [50.938107, 6.957068],
+                {
+}
+            ).addTo(map_d6399a013e4a86b03891ebb92acb7140);
+        
+    
+            var icon_4a40fe62a833c0fb573f9e56b6ab8e84 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_468f5fa80feb7ed94daf34187fc0d926 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b1204149e6614323058d8d012fc4ea8b = $(`<div id="html_b1204149e6614323058d8d012fc4ea8b" style="width: 100.0%; height: 100.0%;">6. Köln, Stadt</div>`)[0];
+                popup_468f5fa80feb7ed94daf34187fc0d926.setContent(html_b1204149e6614323058d8d012fc4ea8b);
+            
+        
+
+        marker_dcaddcdbac70a8f709d1af684840011c.bindPopup(popup_468f5fa80feb7ed94daf34187fc0d926)
+        ;
+
+        
+    
+    
+            marker_dcaddcdbac70a8f709d1af684840011c.bindTooltip(
+                `<div>
+                     Köln, Stadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_dcaddcdbac70a8f709d1af684840011c.setIcon(icon_4a40fe62a833c0fb573f9e56b6ab8e84);
+            
+    
+            var marker_52e466882af8fe9e4014eba978957607 = L.marker(
+                [51.514171, 7.464165],
+                {
+}
+            ).addTo(map_d6399a013e4a86b03891ebb92acb7140);
+        
+    
+            var icon_24a98dbb16b0e856b48b164b5a51437b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3d469efb7af0a82beb1131570a664eee = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d85f5fffd0b8169e39b2725c8319ab92 = $(`<div id="html_d85f5fffd0b8169e39b2725c8319ab92" style="width: 100.0%; height: 100.0%;">7. Dortmund, Stadt</div>`)[0];
+                popup_3d469efb7af0a82beb1131570a664eee.setContent(html_d85f5fffd0b8169e39b2725c8319ab92);
+            
+        
+
+        marker_52e466882af8fe9e4014eba978957607.bindPopup(popup_3d469efb7af0a82beb1131570a664eee)
+        ;
+
+        
+    
+    
+            marker_52e466882af8fe9e4014eba978957607.bindTooltip(
+                `<div>
+                     Dortmund, Stadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_52e466882af8fe9e4014eba978957607.setIcon(icon_24a98dbb16b0e856b48b164b5a51437b);
+            
+    
+            var marker_71eca2178785326e505e3a4b0b90014d = L.marker(
+                [51.22422, 6.780068],
+                {
+}
+            ).addTo(map_d6399a013e4a86b03891ebb92acb7140);
+        
+    
+            var icon_0521c0547cd757317e799a881d430c0b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2f8d28bd78fc09d6f5de45e16bc118ab = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_edca18fe544acebe97c055c8603e064c = $(`<div id="html_edca18fe544acebe97c055c8603e064c" style="width: 100.0%; height: 100.0%;">8. Düsseldorf, Stadt</div>`)[0];
+                popup_2f8d28bd78fc09d6f5de45e16bc118ab.setContent(html_edca18fe544acebe97c055c8603e064c);
+            
+        
+
+        marker_71eca2178785326e505e3a4b0b90014d.bindPopup(popup_2f8d28bd78fc09d6f5de45e16bc118ab)
+        ;
+
+        
+    
+    
+            marker_71eca2178785326e505e3a4b0b90014d.bindTooltip(
+                `<div>
+                     Düsseldorf, Stadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_71eca2178785326e505e3a4b0b90014d.setIcon(icon_0521c0547cd757317e799a881d430c0b);
+            
+    
+            var marker_1d04f2f79863706efb3ecf42488f6397 = L.marker(
+                [53.075606, 8.809338],
+                {
+}
+            ).addTo(map_d6399a013e4a86b03891ebb92acb7140);
+        
+    
+            var icon_452c65b6cf35e0e5b17f676d0a1e540e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d183955a95a676e66efca47ddbe34ec9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4ba9252be67e9df0968d5ff549aed3c2 = $(`<div id="html_4ba9252be67e9df0968d5ff549aed3c2" style="width: 100.0%; height: 100.0%;">9. Bremen, Stadt</div>`)[0];
+                popup_d183955a95a676e66efca47ddbe34ec9.setContent(html_4ba9252be67e9df0968d5ff549aed3c2);
+            
+        
+
+        marker_1d04f2f79863706efb3ecf42488f6397.bindPopup(popup_d183955a95a676e66efca47ddbe34ec9)
+        ;
+
+        
+    
+    
+            marker_1d04f2f79863706efb3ecf42488f6397.bindTooltip(
+                `<div>
+                     Bremen, Stadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1d04f2f79863706efb3ecf42488f6397.setIcon(icon_452c65b6cf35e0e5b17f676d0a1e540e);
+            
+    
+            var marker_6eb252c2c09aa60b3446aae248ce6b94 = L.marker(
+                [53.550678, 9.99697],
+                {
+}
+            ).addTo(map_d6399a013e4a86b03891ebb92acb7140);
+        
+    
+            var icon_a2eb3b1a3afe54e75154a4132147a3e1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e366997b652b0d8b559e27a04d5fd508 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e2e8f3939124e9b5c24a40a1776331f4 = $(`<div id="html_e2e8f3939124e9b5c24a40a1776331f4" style="width: 100.0%; height: 100.0%;">10. Hamburg, Freie und Hansestadt</div>`)[0];
+                popup_e366997b652b0d8b559e27a04d5fd508.setContent(html_e2e8f3939124e9b5c24a40a1776331f4);
+            
+        
+
+        marker_6eb252c2c09aa60b3446aae248ce6b94.bindPopup(popup_e366997b652b0d8b559e27a04d5fd508)
+        ;
+
+        
+    
+    
+            marker_6eb252c2c09aa60b3446aae248ce6b94.bindTooltip(
+                `<div>
+                     Hamburg, Freie und Hansestadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6eb252c2c09aa60b3446aae248ce6b94.setIcon(icon_a2eb3b1a3afe54e75154a4132147a3e1);
+            
+</script>
+</html>
