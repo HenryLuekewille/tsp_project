@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_0357bf785f267bfab335a26b13f9b3df {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <div style="position: fixed; 
+                top: 10px; 
+                left: 50px; 
+                width: 400px; 
+                height: 90px; 
+                background-color: white;
+                border: 2px solid grey;
+                z-index: 9999;
+                font-size: 16px;
+                padding: 10px;
+                box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+                ">
+        <h3 style="margin: 0; color: #2c3e50;">TSP top_10_staedte - Simulated Annealing</h3>
+        <p style="margin: 5px 0;"><strong>Gesamtdistanz:</strong> 
+           1643.31 km</p>
+        <p style="margin: 5px 0;"><strong>Anzahl Städte:</strong> 
+           10</p>
+    </div>
+    
+    
+            <div class="folium-map" id="map_0357bf785f267bfab335a26b13f9b3df" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_0357bf785f267bfab335a26b13f9b3df = L.map(
+                "map_0357bf785f267bfab335a26b13f9b3df",
+                {
+                    center: [51.118311999999996, 9.522724199999997],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 6,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_fb241d198b06e1cd4e15d56e97fd93b7 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_fb241d198b06e1cd4e15d56e97fd93b7.addTo(map_0357bf785f267bfab335a26b13f9b3df);
+        
+    
+            var marker_817935611a24818457ebc1802fd0f499 = L.marker(
+                [52.51767, 13.405538],
+                {
+}
+            ).addTo(map_0357bf785f267bfab335a26b13f9b3df);
+        
+    
+            var icon_47583f63a8e0077302cbd799645ef35b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "play",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_55ea504ce5b7b05042f129ac0ff77cf4 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a61498f0b5560a9647a38563d243c1fc = $(`<div id="html_a61498f0b5560a9647a38563d243c1fc" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 200px;">             <h4 style="margin: 0; color: green;">🏁 START: Berlin, Stadt</h4>             <hr style="margin: 5px 0;">             <p style="margin: 3px 0;">                 <strong>Einwohner:</strong>                  3,685,265             </p>             <p style="margin: 3px 0;">                 <strong>Position:</strong> 1 / 10             </p>             <p style="margin: 3px 0; font-size: 11px; color: #666;">                 Lat: 52.5177°<br>                 Lon: 13.4055°             </p>         </div>         </div>`)[0];
+                popup_55ea504ce5b7b05042f129ac0ff77cf4.setContent(html_a61498f0b5560a9647a38563d243c1fc);
+            
+        
+
+        marker_817935611a24818457ebc1802fd0f499.bindPopup(popup_55ea504ce5b7b05042f129ac0ff77cf4)
+        ;
+
+        
+    
+    
+            marker_817935611a24818457ebc1802fd0f499.bindTooltip(
+                `<div>
+                     1. Berlin, Stadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_817935611a24818457ebc1802fd0f499.setIcon(icon_47583f63a8e0077302cbd799645ef35b);
+            
+    
+            var marker_9df1049b24705a73e01a311a2b4b30a2 = L.marker(
+                [53.550678, 9.99697],
+                {
+}
+            ).addTo(map_0357bf785f267bfab335a26b13f9b3df);
+        
+    
+            var icon_563ac1e589704d847805c2041ed513ca = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2ed0c0e5e1799b8a171528f06946f863 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_78652b94f0674e3b45205795094dedc1 = $(`<div id="html_78652b94f0674e3b45205795094dedc1" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 200px;">             <h4 style="margin: 0; color: blue;">#1: Hamburg, Freie und Hansestadt</h4>             <hr style="margin: 5px 0;">             <p style="margin: 3px 0;">                 <strong>Einwohner:</strong>                  1,862,565             </p>             <p style="margin: 3px 0;">                 <strong>Position:</strong> 2 / 10             </p>             <p style="margin: 3px 0; font-size: 11px; color: #666;">                 Lat: 53.5507°<br>                 Lon: 9.9970°             </p>         </div>         </div>`)[0];
+                popup_2ed0c0e5e1799b8a171528f06946f863.setContent(html_78652b94f0674e3b45205795094dedc1);
+            
+        
+
+        marker_9df1049b24705a73e01a311a2b4b30a2.bindPopup(popup_2ed0c0e5e1799b8a171528f06946f863)
+        ;
+
+        
+    
+    
+            marker_9df1049b24705a73e01a311a2b4b30a2.bindTooltip(
+                `<div>
+                     2. Hamburg, Freie und Hansestadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9df1049b24705a73e01a311a2b4b30a2.setIcon(icon_563ac1e589704d847805c2041ed513ca);
+            
+    
+            var marker_f6f5a94479c1fde44e1eb643d6e76a78 = L.marker(
+                [53.075606, 8.809338],
+                {
+}
+            ).addTo(map_0357bf785f267bfab335a26b13f9b3df);
+        
+    
+            var icon_659583798095b4facf8d9497b4a061ca = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b04db1209a38f0632af73ceb237dcd9c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_41a00a20f316258d5df9f66f4ea3486b = $(`<div id="html_41a00a20f316258d5df9f66f4ea3486b" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 200px;">             <h4 style="margin: 0; color: blue;">#2: Bremen, Stadt</h4>             <hr style="margin: 5px 0;">             <p style="margin: 3px 0;">                 <strong>Einwohner:</strong>                  586,271             </p>             <p style="margin: 3px 0;">                 <strong>Position:</strong> 3 / 10             </p>             <p style="margin: 3px 0; font-size: 11px; color: #666;">                 Lat: 53.0756°<br>                 Lon: 8.8093°             </p>         </div>         </div>`)[0];
+                popup_b04db1209a38f0632af73ceb237dcd9c.setContent(html_41a00a20f316258d5df9f66f4ea3486b);
+            
+        
+
+        marker_f6f5a94479c1fde44e1eb643d6e76a78.bindPopup(popup_b04db1209a38f0632af73ceb237dcd9c)
+        ;
+
+        
+    
+    
+            marker_f6f5a94479c1fde44e1eb643d6e76a78.bindTooltip(
+                `<div>
+                     3. Bremen, Stadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f6f5a94479c1fde44e1eb643d6e76a78.setIcon(icon_659583798095b4facf8d9497b4a061ca);
+            
+    
+            var marker_1703724383811630af830fb559306573 = L.marker(
+                [51.514171, 7.464165],
+                {
+}
+            ).addTo(map_0357bf785f267bfab335a26b13f9b3df);
+        
+    
+            var icon_c7526b1b87b8c1435f843d944676471e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5e4b476fa9751fbaf87bfb8b66dc11ce = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5ea264a778991d6758bf4b0d517896d4 = $(`<div id="html_5ea264a778991d6758bf4b0d517896d4" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 200px;">             <h4 style="margin: 0; color: blue;">#3: Dortmund, Stadt</h4>             <hr style="margin: 5px 0;">             <p style="margin: 3px 0;">                 <strong>Einwohner:</strong>                  603,462             </p>             <p style="margin: 3px 0;">                 <strong>Position:</strong> 4 / 10             </p>             <p style="margin: 3px 0; font-size: 11px; color: #666;">                 Lat: 51.5142°<br>                 Lon: 7.4642°             </p>         </div>         </div>`)[0];
+                popup_5e4b476fa9751fbaf87bfb8b66dc11ce.setContent(html_5ea264a778991d6758bf4b0d517896d4);
+            
+        
+
+        marker_1703724383811630af830fb559306573.bindPopup(popup_5e4b476fa9751fbaf87bfb8b66dc11ce)
+        ;
+
+        
+    
+    
+            marker_1703724383811630af830fb559306573.bindTooltip(
+                `<div>
+                     4. Dortmund, Stadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1703724383811630af830fb559306573.setIcon(icon_c7526b1b87b8c1435f843d944676471e);
+            
+    
+            var marker_49cd6e209f0daa57306638e56433c508 = L.marker(
+                [51.22422, 6.780068],
+                {
+}
+            ).addTo(map_0357bf785f267bfab335a26b13f9b3df);
+        
+    
+            var icon_f3ba8fc14c077d289c62c3d18cb99446 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_786160b1db835b69d09ea7d5b47d5863 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_70f89227c64041455742c2b82e346343 = $(`<div id="html_70f89227c64041455742c2b82e346343" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 200px;">             <h4 style="margin: 0; color: blue;">#4: Düsseldorf, Stadt</h4>             <hr style="margin: 5px 0;">             <p style="margin: 3px 0;">                 <strong>Einwohner:</strong>                  618,685             </p>             <p style="margin: 3px 0;">                 <strong>Position:</strong> 5 / 10             </p>             <p style="margin: 3px 0; font-size: 11px; color: #666;">                 Lat: 51.2242°<br>                 Lon: 6.7801°             </p>         </div>         </div>`)[0];
+                popup_786160b1db835b69d09ea7d5b47d5863.setContent(html_70f89227c64041455742c2b82e346343);
+            
+        
+
+        marker_49cd6e209f0daa57306638e56433c508.bindPopup(popup_786160b1db835b69d09ea7d5b47d5863)
+        ;
+
+        
+    
+    
+            marker_49cd6e209f0daa57306638e56433c508.bindTooltip(
+                `<div>
+                     5. Düsseldorf, Stadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_49cd6e209f0daa57306638e56433c508.setIcon(icon_f3ba8fc14c077d289c62c3d18cb99446);
+            
+    
+            var marker_7e0ea0c86d19a135fff5fb5666bd9d66 = L.marker(
+                [50.938107, 6.957068],
+                {
+}
+            ).addTo(map_0357bf785f267bfab335a26b13f9b3df);
+        
+    
+            var icon_69329fbc223b90ade973c0459824e689 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_529150491cd85bc2053286a384b3b15c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_bcba1eb80b0510608ec5b886691a69d9 = $(`<div id="html_bcba1eb80b0510608ec5b886691a69d9" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 200px;">             <h4 style="margin: 0; color: blue;">#5: Köln, Stadt</h4>             <hr style="margin: 5px 0;">             <p style="margin: 3px 0;">                 <strong>Einwohner:</strong>                  1,024,621             </p>             <p style="margin: 3px 0;">                 <strong>Position:</strong> 6 / 10             </p>             <p style="margin: 3px 0; font-size: 11px; color: #666;">                 Lat: 50.9381°<br>                 Lon: 6.9571°             </p>         </div>         </div>`)[0];
+                popup_529150491cd85bc2053286a384b3b15c.setContent(html_bcba1eb80b0510608ec5b886691a69d9);
+            
+        
+
+        marker_7e0ea0c86d19a135fff5fb5666bd9d66.bindPopup(popup_529150491cd85bc2053286a384b3b15c)
+        ;
+
+        
+    
+    
+            marker_7e0ea0c86d19a135fff5fb5666bd9d66.bindTooltip(
+                `<div>
+                     6. Köln, Stadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7e0ea0c86d19a135fff5fb5666bd9d66.setIcon(icon_69329fbc223b90ade973c0459824e689);
+            
+    
+            var marker_f167d24c3e1395608b6773bb3297aa95 = L.marker(
+                [50.11088, 8.682433],
+                {
+}
+            ).addTo(map_0357bf785f267bfab335a26b13f9b3df);
+        
+    
+            var icon_b4d034d1db07029a136fdb0018c9e248 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_aeecc6d8299d682d22b4378d4d88d371 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8a3b83073c6d138638c01f49d937ebc7 = $(`<div id="html_8a3b83073c6d138638c01f49d937ebc7" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 200px;">             <h4 style="margin: 0; color: blue;">#6: Frankfurt am Main, Stadt</h4>             <hr style="margin: 5px 0;">             <p style="margin: 3px 0;">                 <strong>Einwohner:</strong>                  756,021             </p>             <p style="margin: 3px 0;">                 <strong>Position:</strong> 7 / 10             </p>             <p style="margin: 3px 0; font-size: 11px; color: #666;">                 Lat: 50.1109°<br>                 Lon: 8.6824°             </p>         </div>         </div>`)[0];
+                popup_aeecc6d8299d682d22b4378d4d88d371.setContent(html_8a3b83073c6d138638c01f49d937ebc7);
+            
+        
+
+        marker_f167d24c3e1395608b6773bb3297aa95.bindPopup(popup_aeecc6d8299d682d22b4378d4d88d371)
+        ;
+
+        
+    
+    
+            marker_f167d24c3e1395608b6773bb3297aa95.bindTooltip(
+                `<div>
+                     7. Frankfurt am Main, Stadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f167d24c3e1395608b6773bb3297aa95.setIcon(icon_b4d034d1db07029a136fdb0018c9e248);
+            
+    
+            var marker_43819aa53fb357b2fa37c4d241488cb0 = L.marker(
+                [48.775817, 9.177734],
+                {
+}
+            ).addTo(map_0357bf785f267bfab335a26b13f9b3df);
+        
+    
+            var icon_f68c626c3f5fd8bf8db5ca7f73ddf71d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2ff43e2c6328334d95a00fee97945988 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a855285a46ab2eeae2bfd1b8c29d0bc5 = $(`<div id="html_a855285a46ab2eeae2bfd1b8c29d0bc5" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 200px;">             <h4 style="margin: 0; color: blue;">#7: Stuttgart, Landeshauptstadt</h4>             <hr style="margin: 5px 0;">             <p style="margin: 3px 0;">                 <strong>Einwohner:</strong>                  612,663             </p>             <p style="margin: 3px 0;">                 <strong>Position:</strong> 8 / 10             </p>             <p style="margin: 3px 0; font-size: 11px; color: #666;">                 Lat: 48.7758°<br>                 Lon: 9.1777°             </p>         </div>         </div>`)[0];
+                popup_2ff43e2c6328334d95a00fee97945988.setContent(html_a855285a46ab2eeae2bfd1b8c29d0bc5);
+            
+        
+
+        marker_43819aa53fb357b2fa37c4d241488cb0.bindPopup(popup_2ff43e2c6328334d95a00fee97945988)
+        ;
+
+        
+    
+    
+            marker_43819aa53fb357b2fa37c4d241488cb0.bindTooltip(
+                `<div>
+                     8. Stuttgart, Landeshauptstadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_43819aa53fb357b2fa37c4d241488cb0.setIcon(icon_f68c626c3f5fd8bf8db5ca7f73ddf71d);
+            
+    
+            var marker_5579087358ee57ef31c2b41ebd49136f = L.marker(
+                [48.137683, 11.575997],
+                {
+}
+            ).addTo(map_0357bf785f267bfab335a26b13f9b3df);
+        
+    
+            var icon_f358367da47eb955aef5bbabe26050e1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f0147e7f8d4cbfeedcd93f97f3a80fec = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2189f42e13a71b8cc373f1c4ef6d635f = $(`<div id="html_2189f42e13a71b8cc373f1c4ef6d635f" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 200px;">             <h4 style="margin: 0; color: blue;">#8: München, Landeshauptstadt</h4>             <hr style="margin: 5px 0;">             <p style="margin: 3px 0;">                 <strong>Einwohner:</strong>                  1,505,005             </p>             <p style="margin: 3px 0;">                 <strong>Position:</strong> 9 / 10             </p>             <p style="margin: 3px 0; font-size: 11px; color: #666;">                 Lat: 48.1377°<br>                 Lon: 11.5760°             </p>         </div>         </div>`)[0];
+                popup_f0147e7f8d4cbfeedcd93f97f3a80fec.setContent(html_2189f42e13a71b8cc373f1c4ef6d635f);
+            
+        
+
+        marker_5579087358ee57ef31c2b41ebd49136f.bindPopup(popup_f0147e7f8d4cbfeedcd93f97f3a80fec)
+        ;
+
+        
+    
+    
+            marker_5579087358ee57ef31c2b41ebd49136f.bindTooltip(
+                `<div>
+                     9. München, Landeshauptstadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5579087358ee57ef31c2b41ebd49136f.setIcon(icon_f358367da47eb955aef5bbabe26050e1);
+            
+    
+            var marker_860858c1492bc5333e6d30d82c1b4e6a = L.marker(
+                [51.338288, 12.377931],
+                {
+}
+            ).addTo(map_0357bf785f267bfab335a26b13f9b3df);
+        
+    
+            var icon_a6750ac91517bf79f2cae47378f67fc8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "stop",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_67d7e1ff940c53dbaae8955975e750ef = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e52c56bd7601c2bb8e3fc36b1ae1b464 = $(`<div id="html_e52c56bd7601c2bb8e3fc36b1ae1b464" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 200px;">             <h4 style="margin: 0; color: red;">🏁 ZIEL: Leipzig, Stadt</h4>             <hr style="margin: 5px 0;">             <p style="margin: 3px 0;">                 <strong>Einwohner:</strong>                  611,850             </p>             <p style="margin: 3px 0;">                 <strong>Position:</strong> 10 / 10             </p>             <p style="margin: 3px 0; font-size: 11px; color: #666;">                 Lat: 51.3383°<br>                 Lon: 12.3779°             </p>         </div>         </div>`)[0];
+                popup_67d7e1ff940c53dbaae8955975e750ef.setContent(html_e52c56bd7601c2bb8e3fc36b1ae1b464);
+            
+        
+
+        marker_860858c1492bc5333e6d30d82c1b4e6a.bindPopup(popup_67d7e1ff940c53dbaae8955975e750ef)
+        ;
+
+        
+    
+    
+            marker_860858c1492bc5333e6d30d82c1b4e6a.bindTooltip(
+                `<div>
+                     10. Leipzig, Stadt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_860858c1492bc5333e6d30d82c1b4e6a.setIcon(icon_a6750ac91517bf79f2cae47378f67fc8);
+            
+    
+            var poly_line_bef1fcb8dd4459a39c954f162a537ef4 = L.polyline(
+                [[52.51767, 13.405538], [53.550678, 9.99697], [53.075606, 8.809338], [51.514171, 7.464165], [51.22422, 6.780068], [50.938107, 6.957068], [50.11088, 8.682433], [48.775817, 9.177734], [48.137683, 11.575997], [51.338288, 12.377931], [52.51767, 13.405538]],
+                {"bubblingMouseEvents": true, "color": "darkblue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "darkblue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(map_0357bf785f267bfab335a26b13f9b3df);
+        
+    
+        var popup_d8453cbd4da7102537572d5793e5f342 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_79844108f24dd2b4a50814042e2439b9 = $(`<div id="html_79844108f24dd2b4a50814042e2439b9" style="width: 100.0%; height: 100.0%;">Gesamtroute: 1643.31 km</div>`)[0];
+                popup_d8453cbd4da7102537572d5793e5f342.setContent(html_79844108f24dd2b4a50814042e2439b9);
+            
+        
+
+        poly_line_bef1fcb8dd4459a39c954f162a537ef4.bindPopup(popup_d8453cbd4da7102537572d5793e5f342)
+        ;
+
+        
+    
+</script>
+</html>

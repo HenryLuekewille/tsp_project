@@ -1,136 +1,293 @@
-# src/visualization.py
 """
-Visualisierungen für TSP-Lösungen
+Visualisierung für TSP-Lösungen
+
+Bietet verschiedene Visualisierungsoptionen:
+- Interaktive Karten mit folium
+- Statische Plots mit matplotlib
+- Konvergenz-Plots
+- Vergleichs-Dashboards
 """
 
 import folium
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
-from typing import List, Dict
-import os
+import numpy as np
+import pandas as pd
+from typing import List, Dict, Optional
+import warnings
+
+warnings.filterwarnings('ignore')
+
+
+def _get_lat_lon_columns(cities_df: pd.DataFrame) -> tuple:
+    """
+    Findet die Spalten für Latitude und Longitude.
+    
+    Args:
+        cities_df: DataFrame mit Städtedaten
+    
+    Returns:
+        tuple: (lat_column, lon_column)
+    
+    Raises:
+        ValueError: Wenn Spalten nicht gefunden werden
+    """
+    columns = cities_df.columns.tolist()
+    
+    # Mögliche Spaltennamen für Latitude
+    lat_names = ['lat', 'latitude', 'Lat', 'Latitude', 'breitengrad', 'Breitengrad']
+    lon_names = ['lon', 'longitude', 'Lon', 'Longitude', 'laengengrad', 
+                 'Laengengrad', 'längengrad', 'Längengrad']
+    
+    lat_col = None
+    lon_col = None
+    
+    # Suche nach Latitude-Spalte
+    for name in lat_names:
+        if name in columns:
+            lat_col = name
+            break
+    
+    # Suche nach Longitude-Spalte
+    for name in lon_names:
+        if name in columns:
+            lon_col = name
+            break
+    
+    if lat_col is None or lon_col is None:
+        raise ValueError(
+            f"Konnte Latitude/Longitude Spalten nicht finden.\n"
+            f"Verfügbare Spalten: {columns}\n"
+            f"Erwartet: Eine von {lat_names} und eine von {lon_names}"
+        )
+    
+    return lat_col, lon_col
 
 
 def visualize_route_on_map(
     cities_df: pd.DataFrame,
     route: List[str],
     distance: float,
-    filename: str = "tsp_route.html",
+    filename: str = "route_map.html",
     title: str = "TSP Route"
-):
+) -> None:
     """
-    Erstellt interaktive Karte mit TSP-Route
+    Erstellt interaktive Karte mit folium.
     
     Args:
-        cities_df: DataFrame mit Städten (columns: name, latitude, longitude)
-        route: Liste von Städtenamen in Besuchsreihenfolge
+        cities_df: DataFrame mit Städten (name, lat/latitude, lon/longitude, population)
+        route: Route als Liste von Städtenamen
         distance: Gesamtdistanz der Route
-        filename: Output HTML-Datei
+        filename: Ausgabedatei (.html)
         title: Titel der Karte
     """
-    # Zentrum von Deutschland
-    map_center = [51.1657, 10.4515]
-    m = folium.Map(location=map_center, zoom_start=6, 
-                   tiles='OpenStreetMap')
+    # Finde Spalten für Lat/Lon
+    lat_col, lon_col = _get_lat_lon_columns(cities_df)
     
-    # Städte als Dict für schnellen Zugriff
-    city_coords = {}
-    for _, row in cities_df.iterrows():
-        city_coords[row['name']] = (row['latitude'], row['longitude'])
+    # Zentrum der Karte berechnen
+    center_lat = cities_df[lat_col].mean()
+    center_lon = cities_df[lon_col].mean()
     
-    # Route zeichnen
-    route_coords = [city_coords[city] for city in route]
-    route_coords.append(route_coords[0])  # Zurück zum Start
-    
-    folium.PolyLine(
-        route_coords,
-        color='red',
-        weight=3,
-        opacity=0.8,
-        popup=f'Route: {distance:.2f} km'
-    ).add_to(m)
-    
-    # Städte markieren
-    for i, city in enumerate(route, 1):
-        lat, lon = city_coords[city]
-        
-        # Startstadt speziell markieren
-        if i == 1:
-            icon = folium.Icon(color='green', icon='play')
-            popup_text = f'🏁 START: {city}'
-        else:
-            icon = folium.Icon(color='blue', icon='info-sign')
-            popup_text = f'{i}. {city}'
-        
-        folium.Marker(
-            [lat, lon],
-            popup=popup_text,
-            tooltip=city,
-            icon=icon
-        ).add_to(m)
+    # Karte erstellen
+    m = folium.Map(
+        location=[center_lat, center_lon],
+        zoom_start=6,
+        tiles='OpenStreetMap'
+    )
     
     # Titel hinzufügen
     title_html = f'''
     <div style="position: fixed; 
-                top: 10px; left: 50px; width: 300px; height: 90px; 
-                background-color: white; border:2px solid grey; z-index:9999; 
-                font-size:14px; padding: 10px">
-        <b>{title}</b><br>
-        Städte: {len(route)}<br>
-        Gesamtdistanz: {distance:.2f} km
+                top: 10px; 
+                left: 50px; 
+                width: 400px; 
+                height: 90px; 
+                background-color: white;
+                border: 2px solid grey;
+                z-index: 9999;
+                font-size: 16px;
+                padding: 10px;
+                box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+                ">
+        <h3 style="margin: 0; color: #2c3e50;">{title}</h3>
+        <p style="margin: 5px 0;"><strong>Gesamtdistanz:</strong> 
+           {distance:.2f} km</p>
+        <p style="margin: 5px 0;"><strong>Anzahl Städte:</strong> 
+           {len(route)}</p>
     </div>
     '''
     m.get_root().html.add_child(folium.Element(title_html))
     
-    # Speichern
+    # Städte markieren
+    for idx, city in enumerate(route):
+        city_data = cities_df[cities_df['name'] == city].iloc[0]
+        
+        # Farbe je nach Position
+        if idx == 0:
+            color = 'green'
+            icon = 'play'
+            popup_prefix = '🏁 START'
+        elif idx == len(route) - 1:
+            color = 'red'
+            icon = 'stop'
+            popup_prefix = '🏁 ZIEL'
+        else:
+            color = 'blue'
+            icon = 'info-sign'
+            popup_prefix = f'#{idx}'
+        
+        # Popup-Inhalt
+        popup_html = f"""
+        <div style="font-family: Arial, sans-serif; width: 200px;">
+            <h4 style="margin: 0; color: {color};">{popup_prefix}: {city}</h4>
+            <hr style="margin: 5px 0;">
+            <p style="margin: 3px 0;">
+                <strong>Einwohner:</strong> 
+                {int(city_data['population']):,}
+            </p>
+            <p style="margin: 3px 0;">
+                <strong>Position:</strong> {idx + 1} / {len(route)}
+            </p>
+            <p style="margin: 3px 0; font-size: 11px; color: #666;">
+                Lat: {city_data[lat_col]:.4f}°<br>
+                Lon: {city_data[lon_col]:.4f}°
+            </p>
+        </div>
+        """
+        
+        folium.Marker(
+            location=[city_data[lat_col], city_data[lon_col]],
+            popup=folium.Popup(popup_html, max_width=250),
+            tooltip=f"{idx + 1}. {city}",
+            icon=folium.Icon(color=color, icon=icon)
+        ).add_to(m)
+    
+    # Route als Linien zeichnen
+    route_coords = []
+    for city in route:
+        city_data = cities_df[cities_df['name'] == city].iloc[0]
+        route_coords.append([city_data[lat_col], city_data[lon_col]])
+    
+    # Zurück zum Start
+    route_coords.append(route_coords[0])
+    
+    folium.PolyLine(
+        route_coords,
+        color='darkblue',
+        weight=3,
+        opacity=0.7,
+        popup=f"Gesamtroute: {distance:.2f} km"
+    ).add_to(m)
+    
+    # Karte speichern
     m.save(filename)
     print(f"  ✓ Interaktive Karte: {filename}")
-    return m
 
 
 def visualize_route_static(
     cities_df: pd.DataFrame,
     route: List[str],
     distance: float,
-    filename: str = "tsp_route.png"
-):
-    """Statisches Plot der Route"""
-    fig, ax = plt.subplots(figsize=(12, 10))
+    filename: str = "route_static.png"
+) -> None:
+    """
+    Erstellt statischen Plot der Route mit matplotlib.
     
-    # Städte
-    city_coords = {}
-    for _, row in cities_df.iterrows():
-        city_coords[row['name']] = (row['longitude'], row['latitude'])
+    Args:
+        cities_df: DataFrame mit Städten
+        route: Route als Liste von Städtenamen
+        distance: Gesamtdistanz
+        filename: Ausgabedatei (.png)
+    """
+    # Finde Spalten für Lat/Lon
+    lat_col, lon_col = _get_lat_lon_columns(cities_df)
+    
+    fig, ax = plt.subplots(figsize=(14, 10))
+    
+    # Deutschland-ähnliche Hintergrundfarbe
+    ax.set_facecolor('#f0f0f0')
     
     # Route zeichnen
-    route_coords = [city_coords[city] for city in route]
+    route_coords = []
+    for city in route:
+        city_data = cities_df[cities_df['name'] == city].iloc[0]
+        route_coords.append([city_data[lon_col], city_data[lat_col]])
+    
+    # Zurück zum Start
     route_coords.append(route_coords[0])
+    route_coords = np.array(route_coords)
     
-    lons, lats = zip(*route_coords)
-    ax.plot(lons, lats, 'r-', linewidth=2, alpha=0.7, label='Route')
+    # Linien
+    ax.plot(
+        route_coords[:, 0],
+        route_coords[:, 1],
+        'b-',
+        linewidth=2,
+        alpha=0.6,
+        zorder=1
+    )
     
-    # Städte markieren
-    for i, city in enumerate(route, 1):
-        lon, lat = city_coords[city]
+    # Punkte mit Größe nach Bevölkerung
+    for idx, city in enumerate(route):
+        city_data = cities_df[cities_df['name'] == city].iloc[0]
         
-        if i == 1:
-            ax.plot(lon, lat, 'go', markersize=15, label='Start')
+        # Punktgröße basiert auf Bevölkerung
+        size = 100 + (city_data['population'] / 10000)
+        
+        # Farbe
+        if idx == 0:
+            color = 'green'
+            marker = 's'  # Square für Start
+            label = 'Start'
         else:
-            ax.plot(lon, lat, 'bo', markersize=10)
+            color = 'red'
+            marker = 'o'
+            label = None
         
-        # Stadtnamen (nur Hauptname ohne Zusätze)
-        city_short = city.split(",")[0]
-        ax.annotate(f'{i}. {city_short}', 
-                   (lon, lat), 
-                   xytext=(5, 5),
-                   textcoords='offset points',
-                   fontsize=8)
+        ax.scatter(
+            city_data[lon_col],
+            city_data[lat_col],
+            s=size,
+            c=color,
+            marker=marker,
+            alpha=0.7,
+            edgecolors='black',
+            linewidth=1.5,
+            zorder=3,
+            label=label
+        )
+        
+        # Stadt-Labels
+        ax.annotate(
+            f"{idx + 1}. {city}",
+            xy=(city_data[lon_col], city_data[lat_col]),
+            xytext=(10, 10),
+            textcoords='offset points',
+            fontsize=9,
+            bbox=dict(
+                boxstyle='round,pad=0.5',
+                facecolor='white',
+                edgecolor='gray',
+                alpha=0.8
+            ),
+            zorder=4
+        )
     
-    ax.set_xlabel('Längengrad')
-    ax.set_ylabel('Breitengrad')
-    ax.set_title(f'TSP Route - {distance:.2f} km', fontsize=14, fontweight='bold')
-    ax.legend()
-    ax.grid(True, alpha=0.3)
+    # Titel und Labels
+    ax.set_title(
+        f'TSP Route durch {len(route)} Städte\n'
+        f'Gesamtdistanz: {distance:.2f} km',
+        fontsize=16,
+        fontweight='bold',
+        pad=20
+    )
+    ax.set_xlabel('Längengrad', fontsize=12)
+    ax.set_ylabel('Breitengrad', fontsize=12)
+    
+    # Legende
+    ax.legend(loc='upper right', fontsize=10)
+    
+    # Grid
+    ax.grid(True, alpha=0.3, linestyle='--')
     
     plt.tight_layout()
     plt.savefig(filename, dpi=300, bbox_inches='tight')
@@ -138,154 +295,426 @@ def visualize_route_static(
     plt.close()
 
 
-def plot_ga_convergence(ga_stats: dict, filename: str = "ga_convergence.png"):
-    """Zeigt Konvergenz des Genetic Algorithm"""
-    fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+def plot_sa_convergence(
+    sa_stats: Dict,
+    filename: str = "sa_convergence.png"
+) -> None:
+    """
+    Zeigt Konvergenz von Simulated Annealing.
     
-    # 1. Beste Fitness über Zeit
+    Args:
+        sa_stats: Statistiken vom SA-Algorithmus
+        filename: Ausgabedatei
+    """
+    fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+    
+    # 1. Beste Distanz über Zeit
     ax1 = axes[0, 0]
-    ax1.plot(ga_stats['best_fitness_history'], 'b-', linewidth=2)
-    ax1.set_xlabel('Generation')
-    ax1.set_ylabel('Beste Distanz (km)')
-    ax1.set_title('Konvergenz: Beste Lösung')
-    ax1.grid(True, alpha=0.3)
+    history = sa_stats['best_distance_history']
+    if history:
+        iterations = np.arange(len(history)) * 1000
+        ax1.plot(iterations, history, 'b-', linewidth=2, alpha=0.8)
+        ax1.fill_between(
+            iterations,
+            history,
+            alpha=0.3,
+            color='blue'
+        )
+        ax1.set_xlabel('Iteration', fontsize=11, fontweight='bold')
+        ax1.set_ylabel('Beste Distanz (km)', fontsize=11, fontweight='bold')
+        ax1.set_title(
+            'Konvergenz der besten Lösung',
+            fontsize=13,
+            fontweight='bold'
+        )
+        ax1.grid(True, alpha=0.3, linestyle='--')
+        
+        # Verbesserung annotieren
+        initial = history[0]
+        final = history[-1]
+        improvement = initial - final
+        ax1.annotate(
+            f'Verbesserung:\n{improvement:.1f} km\n'
+            f'({improvement/initial*100:.1f}%)',
+            xy=(iterations[-1], final),
+            xytext=(-120, 40),
+            textcoords='offset points',
+            bbox=dict(boxstyle='round', facecolor='lightgreen', alpha=0.8),
+            fontsize=9,
+            arrowprops=dict(arrowstyle='->', color='green', lw=2)
+        )
     
-    # 2. Durchschnittliche Fitness
+    # 2. Temperatur über Zeit
     ax2 = axes[0, 1]
-    ax2.plot(ga_stats['avg_fitness_history'], 'g-', linewidth=2, 
-             label='Durchschnitt')
-    ax2.plot(ga_stats['best_fitness_history'], 'b--', linewidth=1, 
-             label='Beste')
-    ax2.set_xlabel('Generation')
-    ax2.set_ylabel('Distanz (km)')
-    ax2.set_title('Population Fitness')
-    ax2.legend()
-    ax2.grid(True, alpha=0.3)
+    temp_history = sa_stats['temperature_history']
+    if temp_history:
+        iterations = np.arange(len(temp_history)) * 1000
+        ax2.plot(iterations, temp_history, 'r-', linewidth=2, alpha=0.8)
+        ax2.fill_between(
+            iterations,
+            temp_history,
+            alpha=0.3,
+            color='red'
+        )
+        ax2.set_xlabel('Iteration', fontsize=11, fontweight='bold')
+        ax2.set_ylabel('Temperatur', fontsize=11, fontweight='bold')
+        ax2.set_title(
+            'Abkühlungskurve',
+            fontsize=13,
+            fontweight='bold'
+        )
+        ax2.set_yscale('log')
+        ax2.grid(True, alpha=0.3, linestyle='--')
+        
+        # Temperaturbereich annotieren
+        ax2.axhline(
+            y=sa_stats['temperature_history'][0],
+            color='orange',
+            linestyle='--',
+            linewidth=2,
+            alpha=0.5,
+            label=f"Start: {sa_stats['temperature_history'][0]:.0f}"
+        )
+        ax2.axhline(
+            y=sa_stats['temperature_history'][-1],
+            color='blue',
+            linestyle='--',
+            linewidth=2,
+            alpha=0.5,
+            label=f"Ende: {sa_stats['temperature_history'][-1]:.2f}"
+        )
+        ax2.legend(loc='upper right', fontsize=9)
     
-    # 3. Diversität
+    # 3. Akzeptanzrate über Zeit
     ax3 = axes[1, 0]
-    ax3.plot(ga_stats['diversity_history'], 'r-', linewidth=2)
-    ax3.set_xlabel('Generation')
-    ax3.set_ylabel('Anzahl unique Routes')
-    ax3.set_title('Genetische Diversität')
-    ax3.grid(True, alpha=0.3)
+    accept_history = sa_stats['acceptance_history']
+    if accept_history:
+        iterations = np.arange(len(accept_history)) * 1000
+        ax3.plot(iterations, accept_history, 'g-', linewidth=2, alpha=0.8)
+        ax3.fill_between(
+            iterations,
+            accept_history,
+            alpha=0.3,
+            color='green'
+        )
+        ax3.set_xlabel('Iteration', fontsize=11, fontweight='bold')
+        ax3.set_ylabel('Akzeptanzrate', fontsize=11, fontweight='bold')
+        ax3.set_title(
+            'Akzeptanzrate über Zeit',
+            fontsize=13,
+            fontweight='bold'
+        )
+        ax3.set_ylim([0, 1])
+        ax3.grid(True, alpha=0.3, linestyle='--')
+        
+        # 50% Linie
+        ax3.axhline(
+            y=0.5,
+            color='red',
+            linestyle='--',
+            alpha=0.5,
+            label='50% Schwelle'
+        )
+        ax3.legend(loc='upper right', fontsize=9)
     
-    # 4. Verbesserung pro Generation
+    # 4. Statistik-Zusammenfassung
     ax4 = axes[1, 1]
-    improvements = np.diff(ga_stats['best_fitness_history'])
-    ax4.bar(range(len(improvements)), -improvements, alpha=0.7)
-    ax4.set_xlabel('Generation')
-    ax4.set_ylabel('Verbesserung (km)')
-    ax4.set_title('Verbesserung pro Generation')
-    ax4.grid(True, alpha=0.3)
+    ax4.axis('off')
     
-    plt.tight_layout()
+    improvement = (
+        sa_stats['initial_distance'] - sa_stats['final_distance']
+    )
+    improvement_pct = (improvement / sa_stats['initial_distance']) * 100
+    
+    stats_text = [
+        "═" * 50,
+        "SIMULATED ANNEALING - STATISTIKEN",
+        "═" * 50,
+        "",
+        "PERFORMANCE:",
+        f"  • Iterationen:        {sa_stats['iterations']:>12,}",
+        f"  • Laufzeit:           {sa_stats['runtime']:>12.3f} s",
+        f"  • Iter/Sekunde:       "
+        f"{sa_stats['iterations']/sa_stats['runtime']:>12,.0f}",
+        "",
+        "AKZEPTANZ:",
+        f"  • Akzeptierte Züge:   {sa_stats['accepted_moves']:>12,}",
+        f"  • Verbesserungen:     {sa_stats['improvements']:>12,}",
+        f"  • Akzeptanzrate:      {sa_stats['acceptance_rate']:>11.1%}",
+        "",
+        "DISTANZ:",
+        f"  • Initiale Distanz:   {sa_stats['initial_distance']:>12.2f} km",
+        f"  • Finale Distanz:     {sa_stats['final_distance']:>12.2f} km",
+        f"  • Verbesserung:       {improvement:>12.2f} km",
+        f"  • Verbesserung:       {improvement_pct:>11.1f} %",
+        "",
+        "═" * 50,
+    ]
+    
+    ax4.text(
+        0.05, 0.95,
+        '\n'.join(stats_text),
+        fontsize=10,
+        verticalalignment='top',
+        family='monospace',
+        bbox=dict(
+            boxstyle='round',
+            facecolor='lightyellow',
+            edgecolor='gray',
+            alpha=0.8,
+            pad=1
+        )
+    )
+    
+    plt.suptitle(
+        'Simulated Annealing - Konvergenz-Analyse',
+        fontsize=16,
+        fontweight='bold',
+        y=0.995
+    )
+    
+    plt.tight_layout(rect=[0, 0, 1, 0.99])
     plt.savefig(filename, dpi=300, bbox_inches='tight')
     print(f"  ✓ Konvergenz-Plot: {filename}")
     plt.close()
 
 
 def create_comparison_dashboard(
-    ga_route: List[str],
-    ga_distance: float,
-    ga_stats: dict,
+    sa_route: List[str],
+    sa_distance: float,
+    sa_stats: Dict,
     exact_route: List[str],
     exact_distance: float,
-    exact_stats: dict,
+    exact_stats: Dict,
     filename: str = "comparison_dashboard.png"
-):
-    """Erstellt Vergleichs-Dashboard GA vs. Exakt"""
-    fig = plt.figure(figsize=(16, 10))
+) -> None:
+    """
+    Erstellt Vergleichs-Dashboard zwischen SA und exakter Lösung.
+    
+    Args:
+        sa_route: SA-Route
+        sa_distance: SA-Distanz
+        sa_stats: SA-Statistiken
+        exact_route: Optimale Route
+        exact_distance: Optimale Distanz
+        exact_stats: Statistiken der exakten Lösung
+        filename: Ausgabedatei
+    """
+    fig = plt.figure(figsize=(18, 12))
     gs = fig.add_gridspec(3, 3, hspace=0.3, wspace=0.3)
     
-    # Titel
-    fig.suptitle('TSP Algorithmen-Vergleich: GA vs. Brute Force', 
-                 fontsize=16, fontweight='bold')
+    # Farben
+    sa_color = '#3498db'  # Blau
+    exact_color = '#2ecc71'  # Grün
     
-    # 1. Distanz-Vergleich (Balken)
+    # 1. Distanz-Vergleich (Balkendiagramm)
     ax1 = fig.add_subplot(gs[0, 0])
-    algorithms = ['GA', 'Exakt']
-    distances = [ga_distance, exact_distance]
-    colors = ['lightblue', 'lightgreen']
-    bars = ax1.bar(algorithms, distances, color=colors, edgecolor='black')
-    ax1.set_ylabel('Distanz (km)')
-    ax1.set_title('Routenlänge')
+    methods = ['Simulated\nAnnealing', 'Exakte\nLösung']
+    distances = [sa_distance, exact_distance]
+    colors = [sa_color, exact_color]
+    
+    bars = ax1.bar(methods, distances, color=colors, alpha=0.7, edgecolor='black')
+    ax1.set_ylabel('Distanz (km)', fontsize=11, fontweight='bold')
+    ax1.set_title('Distanz-Vergleich', fontsize=13, fontweight='bold')
+    ax1.grid(axis='y', alpha=0.3)
     
     # Werte auf Balken
-    for bar in bars:
+    for bar, dist in zip(bars, distances):
         height = bar.get_height()
-        ax1.text(bar.get_x() + bar.get_width()/2., height,
-                f'{height:.2f}',
-                ha='center', va='bottom')
+        ax1.text(
+            bar.get_x() + bar.get_width()/2.,
+            height,
+            f'{dist:.2f} km',
+            ha='center',
+            va='bottom',
+            fontsize=10,
+            fontweight='bold'
+        )
     
-    # 2. Laufzeit-Vergleich (Log-Skala)
+    # 2. Laufzeit-Vergleich (Balkendiagramm, log-scale)
     ax2 = fig.add_subplot(gs[0, 1])
-    runtimes = [ga_stats['runtime'], exact_stats['runtime']]
-    bars = ax2.bar(algorithms, runtimes, color=colors, edgecolor='black')
-    ax2.set_ylabel('Laufzeit (s)')
-    ax2.set_title('Berechnungszeit')
+    runtimes = [sa_stats['runtime'], exact_stats['runtime']]
+    
+    bars = ax2.bar(methods, runtimes, color=colors, alpha=0.7, edgecolor='black')
+    ax2.set_ylabel('Laufzeit (s)', fontsize=11, fontweight='bold')
+    ax2.set_title('Laufzeit-Vergleich', fontsize=13, fontweight='bold')
     ax2.set_yscale('log')
+    ax2.grid(axis='y', alpha=0.3)
     
-    for bar in bars:
+    # Werte auf Balken
+    for bar, runtime in zip(bars, runtimes):
         height = bar.get_height()
-        ax2.text(bar.get_x() + bar.get_width()/2., height,
-                f'{height:.3f}s',
-                ha='center', va='bottom')
+        ax2.text(
+            bar.get_x() + bar.get_width()/2.,
+            height,
+            f'{runtime:.3f}s',
+            ha='center',
+            va='bottom',
+            fontsize=10,
+            fontweight='bold'
+        )
     
-    # 3. Qualitäts-Metrik
+    # 3. Qualitäts-Gauge
     ax3 = fig.add_subplot(gs[0, 2])
-    quality = (exact_distance / ga_distance) * 100
-    ax3.text(0.5, 0.5, f'{quality:.2f}%', 
-            ha='center', va='center', fontsize=48, fontweight='bold')
-    ax3.text(0.5, 0.2, 'GA Qualität\n(% vom Optimum)', 
-            ha='center', va='center', fontsize=12)
-    ax3.set_xlim(0, 1)
-    ax3.set_ylim(0, 1)
-    ax3.axis('off')
+    quality = (exact_distance / sa_distance) * 100
     
-    # 4. GA Konvergenz
+    # Kreisdiagramm als Gauge
+    colors_gauge = ['green' if quality >= 99 else 'orange', 'lightgray']
+    sizes = [quality, 100 - quality]
+    
+    wedges, texts = ax3.pie(
+        sizes,
+        colors=colors_gauge,
+        startangle=90,
+        counterclock=False
+    )
+    
+    # Text in Mitte
+    ax3.text(
+        0, 0,
+        f'{quality:.2f}%',
+        ha='center',
+        va='center',
+        fontsize=24,
+        fontweight='bold'
+    )
+    ax3.text(
+        0, -0.3,
+        'vom Optimum',
+        ha='center',
+        va='center',
+        fontsize=12
+    )
+    ax3.set_title('SA Qualität', fontsize=13, fontweight='bold')
+    
+    # 4. Detaillierte Statistiken (Text)
     ax4 = fig.add_subplot(gs[1, :])
-    ax4.plot(ga_stats['best_fitness_history'], 'b-', linewidth=2)
-    ax4.set_xlabel('Generation')
-    ax4.set_ylabel('Beste Distanz (km)')
-    ax4.set_title('GA Konvergenz über Generationen')
-    ax4.grid(True, alpha=0.3)
-    ax4.axhline(y=exact_distance, color='g', linestyle='--', 
-                label='Optimum (Brute Force)')
-    ax4.legend()
+    ax4.axis('off')
     
-    # 5. Statistik-Tabelle
-    ax5 = fig.add_subplot(gs[2, :])
-    ax5.axis('off')
+    dist_diff = sa_distance - exact_distance
+    time_speedup = exact_stats['runtime'] / sa_stats['runtime']
     
-    # Sichere Extraktion von Iterationen
-    import math
-    exact_iterations = exact_stats.get('iterations', 
-                                       math.factorial(len(ga_route) - 1))
-    
-    stats_data = [
-        ['Metrik', 'GA', 'Brute Force', 'Differenz'],
-        ['Distanz (km)', f'{ga_distance:.2f}', f'{exact_distance:.2f}', 
-         f'{ga_distance - exact_distance:+.2f}'],
-        ['Laufzeit (s)', f'{ga_stats["runtime"]:.3f}', 
-         f'{exact_stats["runtime"]:.3f}',
-         f'{ga_stats["runtime"] - exact_stats["runtime"]:+.3f}'],
-        ['Iterationen', f'{ga_stats["generations"]:,}', 
-         f'{exact_iterations:,}', '-'],
-        ['Qualität', f'{quality:.2f}%', '100.00%', 
-         f'{quality - 100:+.2f}%']
+    stats_table = [
+        "═" * 130,
+        f"{'ALGORITHMUS-VERGLEICH':<130}",
+        "═" * 130,
+        f"{'Metrik':<40} {'Simulated Annealing':>25} {'Exakte Lösung':>25} "
+        f"{'Differenz':>25}",
+        "─" * 130,
+        f"{'Distanz (km)':<40} {sa_distance:>25.2f} {exact_distance:>25.2f} "
+        f"{dist_diff:>+25.2f}",
+        f"{'Laufzeit (s)':<40} {sa_stats['runtime']:>25.3f} "
+        f"{exact_stats['runtime']:>25.3f} "
+        f"{sa_stats['runtime'] - exact_stats['runtime']:>+25.3f}",
+        f"{'Speedup':<40} {'':<25} {'':<25} "
+        f"{'SA ' + f'{time_speedup:.1f}x schneller':>25}",
+        f"{'Iterationen/Permutationen':<40} {sa_stats['iterations']:>25,} "
+        f"{exact_stats.get('iterations', 'N/A'):>25} {'':<25}",
+        "─" * 130,
+        f"{'QUALITÄTSMETRIKEN':<130}",
+        "─" * 130,
+        f"{'Optimaler Abstand':<40} {dist_diff:>25.2f} km "
+        f"({(dist_diff/exact_distance)*100:>6.2f}%)",
+        f"{'Qualität':<40} {quality:>25.2f}% vom Optimum",
+        f"{'SA Verbesserung':<40} "
+        f"{sa_stats['initial_distance'] - sa_distance:>25.2f} km "
+        f"({((sa_stats['initial_distance'] - sa_distance)/sa_stats['initial_distance']*100):>6.2f}%)",
+        "═" * 130,
     ]
     
-    table = ax5.table(cellText=stats_data, cellLoc='center', loc='center',
-                     colWidths=[0.3, 0.2, 0.2, 0.2])
-    table.auto_set_font_size(False)
-    table.set_fontsize(10)
-    table.scale(1, 2)
+    ax4.text(
+        0.5, 0.5,
+        '\n'.join(stats_table),
+        ha='center',
+        va='center',
+        fontsize=9,
+        family='monospace',
+        bbox=dict(
+            boxstyle='round',
+            facecolor='lightyellow',
+            edgecolor='gray',
+            alpha=0.8
+        )
+    )
     
-    # Header-Zeile hervorheben
-    for i in range(4):
-        table[(0, i)].set_facecolor('#40466e')
-        table[(0, i)].set_text_props(weight='bold', color='white')
+    # 5. SA Konvergenz
+    ax5 = fig.add_subplot(gs[2, :2])
+    if sa_stats['best_distance_history']:
+        iterations = np.arange(len(sa_stats['best_distance_history'])) * 1000
+        ax5.plot(
+            iterations,
+            sa_stats['best_distance_history'],
+            color=sa_color,
+            linewidth=2,
+            label='SA Beste Lösung'
+        )
+        ax5.axhline(
+            y=exact_distance,
+            color=exact_color,
+            linestyle='--',
+            linewidth=2,
+            label='Optimale Lösung'
+        )
+        ax5.fill_between(
+            iterations,
+            sa_stats['best_distance_history'],
+            exact_distance,
+            alpha=0.2,
+            color='red'
+        )
+        ax5.set_xlabel('Iteration', fontsize=11, fontweight='bold')
+        ax5.set_ylabel('Distanz (km)', fontsize=11, fontweight='bold')
+        ax5.set_title(
+            'SA Konvergenz zum Optimum',
+            fontsize=13,
+            fontweight='bold'
+        )
+        ax5.legend(loc='upper right', fontsize=10)
+        ax5.grid(True, alpha=0.3)
+    
+    # 6. Route-Übereinstimmung
+    ax6 = fig.add_subplot(gs[2, 2])
+    ax6.axis('off')
+    
+    # Prüfe Routen-Gleichheit
+    routes_equal = (sa_route == exact_route)
+    
+    route_comparison = [
+        "ROUTEN-VERGLEICH",
+        "═" * 30,
+        "",
+        f"SA Route:",
+        f"  {' → '.join(sa_route[:3])}...",
+        "",
+        f"Optimale Route:",
+        f"  {' → '.join(exact_route[:3])}...",
+        "",
+        "─" * 30,
+        f"Identisch: {'✓ JA' if routes_equal else '✗ NEIN'}",
+        "═" * 30,
+    ]
+    
+    ax6.text(
+        0.5, 0.5,
+        '\n'.join(route_comparison),
+        ha='center',
+        va='center',
+        fontsize=10,
+        family='monospace',
+        bbox=dict(
+            boxstyle='round',
+            facecolor='lightblue' if routes_equal else 'lightyellow',
+            edgecolor='gray',
+            alpha=0.8
+        )
+    )
+    
+    plt.suptitle(
+        'TSP Deutschland: Simulated Annealing vs. Exakte Lösung',
+        fontsize=16,
+        fontweight='bold',
+        y=0.995
+    )
     
     plt.savefig(filename, dpi=300, bbox_inches='tight')
     print(f"  ✓ Vergleichs-Dashboard: {filename}")
